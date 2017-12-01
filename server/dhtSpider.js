@@ -3,6 +3,7 @@ const dgram = require('dgram');
 const _ = require('underscore');
 const util = require('./util');
 const KTable = require('./ktable');
+const torrentStream = require('torrent-stream');
 
 let BOOTSTRAP_NODES = [
   {address: 'router.bittorrent.com', port: 6881},
@@ -142,7 +143,13 @@ class DHTSpider {
     }, rinfo);
 
     console.log(`address: ${rinfo.address}, port: ${port}, infohash: ${infohash.toString('hex')} `);
-    this.btclient.add({address: rinfo.address, port: port}, infohash);
+    let engine = torrentStream(`magnet:?xt=urn:btih:${infohash}\n`);
+    engine.on('ready', () => {
+      _.each(engine.files, file => {
+        console.log(file.name)
+      })
+    });
+    // this.btclient.add({address: rinfo.address, port: port}, infohash);
   }
 
   onMessage(msg, rinfo) {
