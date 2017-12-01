@@ -1,0 +1,20 @@
+{
+  "name": "peer-radar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TalkWithKeyboard",
+  "license": "ISC",
+  "dependencies": {
+    "bencode": "^1.0.0",
+    "bluebird": "^3.5.1",
+    "magnet-link": "^1.1.1",
+    "moment": "^2.19.3",
+    "mongoose": "^4.13.5",
+    "torrent-stream": "^1.0.3",
+    "underscore": "^1.8.3"
+  }
+}
