@@ -4,6 +4,7 @@ const _ = require('underscore');
 const util = require('./util');
 const KTable = require('./ktable');
 const torrentStream = require('torrent-stream');
+const Peer = require('./../model/peer');
 
 let BOOTSTRAP_NODES = [
   {address: 'router.bittorrent.com', port: 6881},
@@ -143,12 +144,20 @@ class DHTSpider {
     }, rinfo);
 
     console.log(`address: ${rinfo.address}, port: ${port}, infohash: ${infohash.toString('hex')} `);
-    let engine = torrentStream(`magnet:?xt=urn:btih:${infohash}\n`);
-    engine.on('ready', () => {
-      _.each(engine.files, file => {
-        console.log(file.name)
-      })
+    let peer = new Peer({
+      address: rinfo.address,
+      port: rinfo.port,
+      infohash: infohash.toString('hex')
     });
+
+    peer.save((err, peer) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(`Finished saving this ${infohash.toString('hex')}`);
+      }
+    });
+
     // this.btclient.add({address: rinfo.address, port: port}, infohash);
   }
 

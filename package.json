@@ -15,6 +15,7 @@
     "moment": "^2.19.3",
     "mongoose": "^4.13.5",
     "parse-torrent": "^5.8.3",
+    "redis": "^2.8.0",
     "torrent-stream": "^1.0.3",
     "underscore": "^1.8.3"
   }
