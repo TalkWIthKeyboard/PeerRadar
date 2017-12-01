@@ -141,12 +141,12 @@ class DHTSpider {
       }
     }, rinfo);
 
-    console.log(`I have found a peer, address: ${rinfo.address}, port: ${port}, infohash: ${infohash}`);
+    console.log(`address: ${rinfo.address}, port: ${port}, infohash: ${infohash.toString('hex')} `);
+    this.btclient.add({address: rinfo.address, port: port}, infohash);
   }
 
   onMessage(msg, rinfo) {
     let _msg = bencode.decode(msg);
-    console.log(_msg.y ? _msg.y.toString() : null, _msg.q ? _msg.q.toString(): null);
     if (_msg.y == 'r' && _msg.r.nodes) {
       this.onFindNodeResponse(_msg.r.nodes);
     } else if (_msg.y == 'q' && _msg.q == 'get_peers') {
@@ -170,7 +170,6 @@ class DHTSpider {
 
     setInterval(() => {
       if (this.btclient.isIdle()) {
-        console.log('start');
         this.joinDHTNetwork();
         this.makeNeighbours();
       }

@@ -1,5 +1,6 @@
 const DHTSpider = require('./server/dhtSpider');
 const BTClient = require('./server/btClient');
+const parseTorrent = require('parse-torrent');
 
 let btclient = new BTClient({
   timeout: 1000 * 10,

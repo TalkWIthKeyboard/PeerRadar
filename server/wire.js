@@ -45,7 +45,7 @@ Wire.prototype._onMessageLength = function (buffer) {
 };
 
 Wire.prototype._onMessage = function (buffer) {
-  this._register(4, this._onMessageLength)
+  this._register(4, this._onMessageLength);
   if (buffer[0] == BT_MSG_ID) {
     this._onExtended(buffer.readUInt8(1), buffer.slice(2));
   }
